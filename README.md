@@ -4,17 +4,22 @@
 
 ※このスクリプトはGENIAC(松尾研究室)の活動で開発が進められています.
 
+# データの抽出：extract_data
+
+## [CommonCrawlのWarcファイルからのコーパス構築](warc)
+- CommonCrawlからWARCファイルをダウンロード
+- 日本語のページを抜き出し､クリーニング､ゴミ記事の削除､jsonlを生成
+- までやるコードです
+
+# データの加工: preprocess_data
 ## [mC4のクリーニング](mc4s)
 - mc4をクリーニングし､機械学習で商用サイトなどをフィルタリングし､textを出力します
 - もとのサイズの20%くらいまでクリーニングできます(推定値)
 - 並列化に対応していないコードなので注意
 - 他のdatasetでも清掃可能です｡
 
+# hugging face dataset化:submit_dataset
 
-## [CommonCrawlのWarcファイルからのコーパス構築](warc)
-- CommonCrawlからWARCファイルをダウンロード
-- 日本語のページを抜き出し､クリーニング､ゴミ記事の削除､jsonlを生成
-- までやるコードです
 
 ## 予定
 
