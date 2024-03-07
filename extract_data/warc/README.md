@@ -35,12 +35,26 @@ setup_commandsに入っているコマンドをターミナルに張り付けて
 
 ### docker, dokcer-composeがインストールされている場合
 
+1. .envをenv.exampleをコピーして作成してください
+
+```shell 
+cp env.example .env
+```
+
+
+
+```shell
+
 dokcer-composeコマンドでコンテナを作成し, そのコンテナをご使用ください
 
 ```
 docker-compose up -d
 ```
 
+http://localhost:8701にアクセスする。
 
+```shell
+main.ipynbを実行
+```
 #### 出力されるtxtファイルが全て同じ中身になってしまうバグが見つかりました.. → 解決しました
 
