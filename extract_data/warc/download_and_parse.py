@@ -17,23 +17,20 @@ import sys
 import shutil
 import argparse
 
-from warc.src.s3_utils import put_s3
+from extract_data.warc.src.s3_utils import put_s3
+from preprocess_data.mc4s.src.classifier.DatasetAnnotator import DatasetAnnotator
+from preprocess_data.mc4s.src.cleaner.auto_cleaner import clean_text
 
 sys.path.append("../")
 
 from tqdm import tqdm
 from datasets import load_dataset
 
-from src.cleaner.LineChecker import remove_dup_lines, remove_multi_headers
 from src.cleaner.WordIntegrator import WordIntegrator
 from src.cleaner.PerplexityChecker import PerplexityChecker
 from src.file_utils import make_dir
 from src.parse_warc import extract_japanese_from_warc
 from src.downloader import get_cc_path_list, download_warc_file,download_warc_file_with_s3
-if True:
-    from mc4s.src.classifier.DatasetAnnotator import DatasetAnnotator
-    from mc4s.src.cleaner.auto_cleaner import clean_text
-
 # integrator for integrating text split by tag
 integrator = WordIntegrator(
     checker=PerplexityChecker("data/lm_sp/ja.arpa.bin",
