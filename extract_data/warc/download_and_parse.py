@@ -10,10 +10,15 @@ Based on the path list downloaded from CommonCrawl
 
 4) Annotate usable and unusable texts based on fasttext
 """
+import gzip
+import json
+import os
 import sys
-import random
 import shutil
 import argparse
+
+from warc.src.s3_utils import put_s3
+
 sys.path.append("../")
 
 from tqdm import tqdm
@@ -24,7 +29,7 @@ from src.cleaner.WordIntegrator import WordIntegrator
 from src.cleaner.PerplexityChecker import PerplexityChecker
 from src.file_utils import make_dir
 from src.parse_warc import extract_japanese_from_warc
-from src.downloader import get_cc_path_list, download_warc_file
+from src.downloader import get_cc_path_list, download_warc_file,download_warc_file_with_s3
 if True:
     from mc4s.src.classifier.DatasetAnnotator import DatasetAnnotator
     from mc4s.src.cleaner.auto_cleaner import clean_text
@@ -47,8 +52,19 @@ corpus_dir = "data/corpus"
 make_dir(corpus_dir)
 
 def download_and_parse(cc_path, is_clean=False, base_dir=None):
+
+    DOWNLOAD_MODE = os.environ.get("DOWNLOAD_MODE", "http")
+
     # download warc file
-    warc_path = download_warc_file(cc_path)
+    if DOWNLOAD_MODE == "http":
+        print("downloading mode with http ")
+        warc_path = download_warc_file(cc_path)
+    elif DOWNLOAD_MODE == "s3":
+        # awsで使用する時は環境変数にDOWNLOAD_MODE=s3を設定する。
+        print("downloading mode with s3 ")
+        warc_path = download_warc_file_with_s3(cc_path)
+    else:
+        raise ValueError("DOWNLOAD_MODE is not defined.please set environment DOWNLOAD_MODE=http or s3")
 
     # parse warc file
     print("parsing "+warc_path)
@@ -129,6 +145,13 @@ def main():
         download_and_parse(cc_path, is_clean=False, base_dir=save_dir)
     shutil.make_archive(submit_dir,
                         format='zip', root_dir=save_dir)
+
+    # 作成した自身のS3バケットにzipファイルをアップロード
+    S3_UPLOAD_S3_BUCKET = os.environ.get("S3_UPLOAD_S3_BUCKET")
+    if S3_UPLOAD_S3_BUCKET is None:
+        print("S3_UPLOAD_S3_BUCKET is not defined")
+    else:
+        put_s3(f"{submit_dir}.zip", f"{submit_dir}.zip")
 
 if __name__ == "__main__":
     main()
