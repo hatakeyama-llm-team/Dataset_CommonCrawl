@@ -34,13 +34,12 @@ setup_commandsに入っているコマンドをターミナルに張り付けて
 実行をしてください.
 
 ### docker, dokcer-composeがインストールされている場合
-
+!! Dockerfileは修正中です。動作しないので上記のcondaで実施お願いします。
 1. .envをenv.exampleをコピーして作成してください
 
 ```shell 
 cp env.example .env
 ```
-
 
 
 ```shell
