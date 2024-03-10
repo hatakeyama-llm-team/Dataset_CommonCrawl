@@ -144,12 +144,12 @@ def main():
                         format='zip', root_dir=save_dir)
 
     # 作成した自身のS3バケットにzipファイルをアップロード
-    # S3_UPLOAD_S3_BUCKET = os.environ.get("S3_UPLOAD_S3_BUCKET")
-    # if S3_UPLOAD_S3_BUCKET is None:
-    #     print("S3_UPLOAD_S3_BUCKET is not defined")
-    # else:
-    #     put_s3(f"{submit_dir}.zip", f"{submit_dir}.zip")
-    #
+    S3_UPLOAD_S3_BUCKET = os.environ.get("S3_UPLOAD_S3_BUCKET",'your-bucket-name-to-upload')
+    if S3_UPLOAD_S3_BUCKET is None:
+        print("S3_UPLOAD_S3_BUCKET is not defined")
+    else:
+        put_s3(f"{submit_dir}.zip", f"{submit_dir}.zip")
+
 if __name__ == "__main__":
     from dotenv import load_dotenv
     # .envファイルの内容を読み込む
