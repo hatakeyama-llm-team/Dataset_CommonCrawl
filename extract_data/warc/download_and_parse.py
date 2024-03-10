@@ -43,7 +43,7 @@ integrator = WordIntegrator(
 # annotator for classifying text
 dataset = load_dataset('mc4', 'ja', split='train', streaming=True)
 annotator = DatasetAnnotator(dataset, clean_func=clean_text, n_preload=500,
-                             out_path="../mc4s/annotations"
+                             out_path="../../preprocess_data/mc4s/annotations"
                              )
 corpus_dir = "data/corpus"
 make_dir(corpus_dir)
@@ -144,11 +144,11 @@ def main():
                         format='zip', root_dir=save_dir)
 
     # 作成した自身のS3バケットにzipファイルをアップロード
-    S3_UPLOAD_S3_BUCKET = os.environ.get("S3_UPLOAD_S3_BUCKET")
-    if S3_UPLOAD_S3_BUCKET is None:
-        print("S3_UPLOAD_S3_BUCKET is not defined")
-    else:
-        put_s3(f"{submit_dir}.zip", f"{submit_dir}.zip")
-
+    # S3_UPLOAD_S3_BUCKET = os.environ.get("S3_UPLOAD_S3_BUCKET")
+    # if S3_UPLOAD_S3_BUCKET is None:
+    #     print("S3_UPLOAD_S3_BUCKET is not defined")
+    # else:
+    #     put_s3(f"{submit_dir}.zip", f"{submit_dir}.zip")
+    #
 if __name__ == "__main__":
     main()
