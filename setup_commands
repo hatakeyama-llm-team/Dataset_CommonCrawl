@@ -1,22 +1,7 @@
 conda create -n crawl -y
 conda activate crawl
 conda install pip
-pip install requests
-pip install warcio
-pip install beautifulsoup4
-pip install tqdm
-pip install emoji==1.7.0
-pip install bunkai
-pip install nltk
-pip install mecab-python3
-pip install fughashi
-pip install ja-sentence-segmenter
-pip install datasets
-pip install hojichar
-pip install scikit-learn
-pip install python-tlsh
-pip install boto3
-pip install lxml
+pip -r requirements.txt
 
 #torch
 #pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
@@ -39,4 +24,4 @@ pip install https://github.com/kpu/kenlm/archive/master.zip
 python -m pip install sentencepiece "protobuf<3.20.*"
 mkdir -p extract_data/warc/data/lm_sp
 wget -c  -P extract_data/warc/data/lm_sp http://dl.fbaipublicfiles.com/cc_net/lm/ja.arpa.bin
-wget -c  -P extract_datawarc/data/lm_sp http://dl.fbaipublicfiles.com/cc_net/lm/ja.sp.model
+wget -c  -P extract_data/warc/data/lm_sp http://dl.fbaipublicfiles.com/cc_net/lm/ja.sp.model
