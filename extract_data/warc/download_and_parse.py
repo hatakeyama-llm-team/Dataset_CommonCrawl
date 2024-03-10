@@ -151,4 +151,7 @@ def main():
     #     put_s3(f"{submit_dir}.zip", f"{submit_dir}.zip")
     #
 if __name__ == "__main__":
+    from dotenv import load_dotenv
+    # .envファイルの内容を読み込む
+    load_dotenv()
     main()

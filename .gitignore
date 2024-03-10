@@ -166,3 +166,4 @@ corpus/
 .tool-versions
 /preprocess_data/mc4s/annotations/text_labels/cc.ja.300.bin.gz
 /preprocess_data/mc4s/annotations/text_labels/cc.ja.300.bin
+/extract_data/warc/submit/batch*.zip
