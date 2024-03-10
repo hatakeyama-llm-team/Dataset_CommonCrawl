@@ -1,20 +1,7 @@
 conda create -n crawl -y
 conda activate crawl
 conda install pip
-pip install requests
-pip install warcio
-pip install beautifulsoup4
-pip install tqdm
-pip install bunkai
-pip install emoji==1.7.0
-pip install nltk
-pip install mecab-python3
-pip install fughashi
-pip install ja-sentence-segmenter
-pip install datasets
-pip install hojichar
-pip install scikit-learn
-pip install python-tlsh
+pip -r requirements.txt
 
 #torch
 #pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
@@ -26,7 +13,7 @@ sudo apt install mecab-ipadic-utf8 -y
 
 #fasttext 記事のフィルタリングに使います
 pip install gensim
-cd mc4s/annotations/text_labels/
+cd preprocess_data/mc4s/annotations/text_labels/
 wget https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.bin.gz
 gzip -d cc.ja.300.bin.gz
 
@@ -35,6 +22,6 @@ gzip -d cc.ja.300.bin.gz
 sudo apt install build-essential cmake libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev libeigen3-dev zlib1g-dev libbz2-dev liblzma-dev
 pip install https://github.com/kpu/kenlm/archive/master.zip
 python -m pip install sentencepiece "protobuf<3.20.*"
-mkdir -p warc/data/lm_sp
-wget -c  -P warc/data/lm_sp http://dl.fbaipublicfiles.com/cc_net/lm/ja.arpa.bin
-wget -c  -P warc/data/lm_sp http://dl.fbaipublicfiles.com/cc_net/lm/ja.sp.model
+mkdir -p extract_data/warc/data/lm_sp
+wget -c  -P extract_data/warc/data/lm_sp http://dl.fbaipublicfiles.com/cc_net/lm/ja.arpa.bin
+wget -c  -P extract_data/warc/data/lm_sp http://dl.fbaipublicfiles.com/cc_net/lm/ja.sp.model

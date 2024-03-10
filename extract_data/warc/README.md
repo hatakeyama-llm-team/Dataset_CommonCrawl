@@ -34,6 +34,15 @@ setup_commandsに入っているコマンドをターミナルに張り付けて
 実行をしてください.
 
 ### docker, dokcer-composeがインストールされている場合
+!! Dockerfileは修正中です。動作しないので上記のcondaで実施お願いします。
+1. .envをenv.exampleをコピーして作成してください
+
+```shell 
+cp env.example .env
+```
+
+
+```shell
 
 dokcer-composeコマンドでコンテナを作成し, そのコンテナをご使用ください
 
@@ -41,6 +50,10 @@ dokcer-composeコマンドでコンテナを作成し, そのコンテナをご�
 docker-compose up -d
 ```
 
+http://localhost:8701にアクセスする。
 
+```shell
+main.ipynbを実行
+```
 #### 出力されるtxtファイルが全て同じ中身になってしまうバグが見つかりました.. → 解決しました
 

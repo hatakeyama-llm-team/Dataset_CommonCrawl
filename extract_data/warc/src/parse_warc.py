@@ -2,8 +2,6 @@
 from warcio.archiveiterator import ArchiveIterator
 from bs4 import BeautifulSoup
 from tqdm import tqdm
-import json
-import glob
 import os
 
 
@@ -59,7 +57,13 @@ def extract_japanese_from_warc(path,
             if record.rec_type == 'response':
                 if record.http_headers.get_header('Content-Type') == 'text/html':
                     content = record.content_stream().read()
-                    soup = BeautifulSoup(content, 'html.parser')
+                    PARSER_TYPE = os.environ.get("PARSER_TYPE", "html.parser")
+                    if PARSER_TYPE == "lxml":
+                        soup = BeautifulSoup(content, 'lxml')
+                    elif PARSER_TYPE == "html":
+                        soup = BeautifulSoup(content, 'html.parser')
+                    else:
+                        raise ValueError("PARSER_TYPE is not defined.please set environment PARSER_TYPE=lxml.parser or html.parser")
                     # <html>タグからlang属性を取得
                     html_tag = soup.find('html')
                     if html_tag and html_tag.has_attr('lang'):

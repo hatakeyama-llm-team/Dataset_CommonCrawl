@@ -1,9 +1,15 @@
 version: '3'
 
 services:
-  dataclean:
+  extract_data:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/app
+      - ~/.aws/credentials:/root/.aws/credentials:ro
+      - ~/.aws/config:/root/.aws/config:ro
+    ports:
+      - 8701:8701
+    environment:
+      $PYTHONPATH: /app/extract_data/warc
