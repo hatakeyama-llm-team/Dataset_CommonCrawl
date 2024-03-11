@@ -49,7 +49,11 @@ corpus_dir = "data/corpus"
 make_dir(corpus_dir)
 
 def download_and_parse(cc_path, is_clean=False, base_dir=None):
+    '''
+    cc_path : str : CommonCrawl warc path
 
+
+    '''
     DOWNLOAD_MODE = os.environ.get("DOWNLOAD_MODE", "http")
 
     # download warc file
@@ -65,14 +69,22 @@ def download_and_parse(cc_path, is_clean=False, base_dir=None):
 
     # parse warc file
     print("parsing "+warc_path)
+    #Todo:1. 出力したテキストを誰にでもわかるようにする。
+    #Todo:2.　除去方法を考える。
     try:
+        # ダウンロードまで
         tag_records = extract_japanese_from_warc(warc_path)
+
+        # tag_recordを入力する関数にする。
+        # 加工する。分ける。
         if is_clean:
+            #for分を関数まとめる。
             # clean
             cleaned_records = []
             for id in range(len(tag_records)):
                 record = tag_records[id]
                 lines = [i[0].strip() for i in record["text"]]
+                # integrator
                 lines = integrator(lines)
                 txt = "\n".join(lines)
                 if txt != "":
@@ -102,6 +114,7 @@ def download_and_parse(cc_path, is_clean=False, base_dir=None):
                 base_dir = "/tmp"
             os.makedirs(base_dir, exist_ok=True)
             save_gz_path = f"{base_dir}/{file_base_name}_japanese.json.gz"
+            # 文字化けしていないか？asciiのため。
             with gzip.open(save_gz_path, 'wt', encoding="ascii") as zipfile:
                json.dump(save_dict, zipfile)
         # clear warc file
